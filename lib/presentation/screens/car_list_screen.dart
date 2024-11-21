@@ -6,7 +6,6 @@ import '../bloc/car_states.dart';
 import '../widgets/car_card.dart';
 
 class CarListScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,20 +15,22 @@ class CarListScreen extends StatelessWidget {
         foregroundColor: Colors.black,
       ),
       body: BlocBuilder<CarBloc, CarState>(
-        builder: (context, state){
-          if(state is CarsLoading){
-            return const Center(child: CircularProgressIndicator(),);
-          }
-          else if(state is CarsLoaded) {
+        builder: (context, state) {
+          if (state is CarsLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is CarsLoaded) {
             return ListView.builder(
               itemCount: state.cars.length,
-              itemBuilder: (context, index){
+              itemBuilder: (context, index) {
                 return CarCard(car: state.cars[index]);
               },
             );
-          }
-          else if(state is CarsError) {
-            return Center(child: Text('error : ${state.message}'),);
+          } else if (state is CarsError) {
+            return Center(
+              child: Text('error : ${state.message}'),
+            );
           }
           return Container();
         },
